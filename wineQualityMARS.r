@@ -10,15 +10,15 @@ trainLabels <- winequality.red[ind==1, 12]
 trainLabels
 testLabels <- winequality.red[ind==2, 12]
 testLabels
-model1 <- earth(quality ~ fixed.acidity + volatile.acidity + citric.acid + residual.sugar
+model <- earth(quality ~ fixed.acidity + volatile.acidity + citric.acid + residual.sugar
                 + chlorides + free.sulfur.dioxide + total.sulfur.dioxide + density + pH 
                 + sulphates + alcohol, data= train) #Model is created for the given data
-table(predict(model1), train$quality)
-summary(model1)
-plot(model1)
-attributes(model1)
+table(predict(model), train$quality)
+summary(model)
+plot(model)
+attributes(model)
 
-testPred <- predict(model1, newdata = test)
+testPred <- predict(model, newdata = test)
 print (1 - sum((testLabels - testPred)^2) / sum((testLabels - mean(testPred))^2))
 table(testPred, test$quality)
 
