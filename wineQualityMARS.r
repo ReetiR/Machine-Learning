@@ -19,9 +19,18 @@ plot(model1)
 attributes(model1)
 
 testPred <- predict(model1, newdata = test)
+print (1 - sum((testLabels - testPred)^2) / sum((testLabels - mean(testPred))^2))
 table(testPred, test$quality)
 
 plot(testLabels,testPred)
+
+reg1 <- earth(testPred~testLabels)
+par(cex=.5)
+plot(testLabels,testPred)
+abline(0,1)
+
+require("lattice")
+xyplot(testLabels ~ testPred, data = winequality.red, type = c("p","r"),xlab = "Actual Values",ylab = "Predicted Values", col.line = "red")
 
 #evaluation
 library(gmodels)
